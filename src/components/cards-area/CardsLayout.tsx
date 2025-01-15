@@ -8,11 +8,12 @@ import PaginationArea from "./PaginationArea";
 import { Badge } from "@/components/ui/badge";
 import { properties } from "@/data/cards-data";
 import Feature from "./Feature";
+import { IProperty } from "@/types/card-types";
 
 const CardsLayout = () => {
   // States
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsViewed, setItemsViewed] = useState(properties.slice(0, 4));
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsViewed, setItemsViewed] = useState<IProperty[]>(properties.slice(0, 4));
 
   //Side Effects
   useEffect(() => {

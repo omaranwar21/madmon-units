@@ -8,8 +8,8 @@ const footerData = [
     title: "Contact Us",
     links: [
       { name: "42 Fareek Awal Ali Amer", icon: MapPin },
-      { name: "01234568910", icon: Phone },
-      { name: "hr@Madmon.ai", icon: Mail },
+      { name: "01234568910", icon: Phone, href: "tel:01234568910" },
+      { name: "hr@Madmon.ai", icon: Mail, href: "mailto:hr@Madmon.ai" },
     ],
     hasIcon: true,
   },
@@ -52,7 +52,13 @@ const Footer = () => {
                           <link.icon />
                         )}
 
-                        <div>{typeof link === "string" ? link : link.name}</div>
+                        <Link
+                          href={
+                            typeof link === "string" ? "#" : link.href || "#"
+                          }
+                        >
+                          {typeof link === "string" ? link : link.name}
+                        </Link>
                       </div>
                     ))}
                 </div>
