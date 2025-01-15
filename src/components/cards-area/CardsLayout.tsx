@@ -66,7 +66,7 @@ const CardsLayout = () => {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-3 mt-2 w-1/2 min-h-5 h-5">
+              <div className="grid grid-cols-6 mt-2 min-h-5 h-5">
                 {property.features.map((feature, index) => (
                   <Feature
                     key={index}

@@ -23,9 +23,9 @@ const Footer = () => {
   return (
     <footer className="bg-blue-600 text-white py-12 bottom-0 w-full">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between">
+        <div className="grid grid-rows-4 lg:flex justify-between">
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center gap-2">
               <Image
                 src="/assets/Logo-w.svg"
                 width={208}
