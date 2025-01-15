@@ -4,9 +4,9 @@ import { FilterIcon, LucideSortDesc, Plus } from "lucide-react";
 
 const HeaderCardsArea = () => {
   return (
-    <div className="flex justify-between items-center mb-6">
-      <h1 className="text-2xl font-bold text-[#494949]">My Units</h1>
-      <div className="flex gap-2 items-center">
+    <div className="grid grid-cols-12 justify-between items-center mb-6">
+      <h1 className="col-span-3 text-2xl font-bold text-[#494949]">My Units</h1>
+      <div className="col-span-9 gap-2 flex justify-end items-center">
         <Button
           variant="default"
           className="bg-[#6666FF] hover:bg-[#6666ff8e]"
@@ -22,7 +22,7 @@ const HeaderCardsArea = () => {
           <LucideSortDesc />
         </Button>
         <Button
-          className="gap-2 py-6 px-[96px] bg-[#6666FF] hover:bg-[#6666ff8e]"
+          className="gap-2 bg-[#6666FF] hover:bg-[#6666ff8e] px-[96px] py-6"
           variant="default"
         >
           <Plus className="h-4 w-4" /> Add Unit

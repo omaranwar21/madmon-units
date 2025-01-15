@@ -1,13 +1,9 @@
+"use client";
+import { sidebarList } from "@/data/sidebar-data";
 import Link from "next/link";
 import React from "react";
 
 const Sidebar = () => {
-  const sidebarList = [
-    { label: "My Account", href: "#" },
-    { label: "My Units", href: "#" },
-    { label: "My Reservations", href: "#" },
-  ];
-
   const [activeIndex, setActiveIndex] = React.useState<number | null>(1);
 
   const handleClick = (index: number) => {
@@ -15,12 +11,12 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-64">
-      <ul className="flex flex-col w-100 gap-4">
+    <div className="col-span-12 xl:col-span-3 w-100">
+      <ul className="grid grid-cols-12 xl:grid-rows-12 w-100 gap-4">
         {sidebarList.map((item, index) => (
           <li
             key={index}
-            className={`flex py-[10px] rounded-[10px] transition-all duration-300 bg-[#F2F3F4] ${
+            className={`col-span-4 xl:col-span-12 py-[10px] rounded-[10px] transition-all duration-300 bg-[#F2F3F4] ${
               activeIndex === index ? "border border-[#0512F5]" : ""
             }`}
           >

@@ -1,108 +1,26 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { Card } from "../ui/card";
-import { Bath, Bed, LucideProps, Maximize, Trash, User } from "lucide-react";
+import { Maximize, Trash, User } from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import PaginationArea from "./PaginationArea";
 import { Badge } from "@/components/ui/badge";
-
-interface IFeatures {
-  id: number;
-  name: string;
-  icon: React.ForwardRefExoticComponent<
-    Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
-  >;
-  value: string;
-}
-
-interface IStatus {
-  status: "Approved" | "Rejected" | "Pending";
-  color: "bg-[#02AE36]" | "bg-[#F20000]" | "bg-[#6666FF]";
-}
-interface IProperty {
-  id: number;
-  title: string;
-  location: string;
-  price: number;
-  features: IFeatures[];
-  area: number;
-  image: string;
-  status: IStatus;
-  isReserved?: boolean;
-  hasBroker?: boolean;
-  brokerName?: string;
-  isEditable?: boolean;
-}
-
-const properties: IProperty[] = [
-  {
-    id: 1,
-    title: "Grand House Real Estate",
-    location: "New Cairo, Egypt",
-    price: 13500000,
-    features: [
-      { id: 1, name: "Rooms", icon: Bed, value: "3" },
-      { id: 2, name: "Bathroom", icon: Bath, value: "3" },
-    ],
-    area: 250,
-    image: "/assets/cards/1.png",
-    status: { status: "Approved", color: "bg-[#02AE36]" },
-    hasBroker: false,
-  },
-  {
-    id: 2,
-    title: "Grand House Real Estate",
-    location: "New Cairo, Egypt",
-    price: 13500000,
-    features: [
-      { id: 1, name: "Rooms", icon: Bed, value: "3" },
-      { id: 2, name: "Bathroom", icon: Bath, value: "3" },
-    ],
-    area: 250,
-    image: "/assets/cards/2.png",
-    status: { status: "Pending", color: "bg-[#6666FF]" },
-  },
-  {
-    id: 3,
-    title: "Grand House Real Estate",
-    location: "New Cairo, Egypt",
-    price: 13500000,
-    features: [
-      { id: 1, name: "Rooms", icon: Bed, value: "3" },
-      { id: 2, name: "Bathroom", icon: Bath, value: "3" },
-    ],
-    area: 250,
-    image: "/assets/cards/3.png",
-    status: { status: "Approved", color: "bg-[#02AE36]" },
-    hasBroker: true,
-    brokerName: "Mohamed Sami",
-    isReserved: true,
-  },
-  {
-    id: 4,
-    title: "Grand House Real Estate",
-    location: "New Cairo, Egypt",
-    price: 13500000,
-    features: [
-      { id: 1, name: "Rooms", icon: Bed, value: "3" },
-      { id: 2, name: "Bathroom", icon: Bath, value: "3" },
-    ],
-    area: 250,
-    image: "/assets/cards/4.png",
-    status: { status: "Rejected", color: "bg-[#F20000]" },
-    isEditable: true,
-  },
-];
+import { properties } from "@/data/cards-data";
+import Feature from "./Feature";
 
 const CardsLayout = () => {
+  // States
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsViewed, setItemsViewed] = useState(properties.slice(0, 4));
 
+  //Side Effects
   useEffect(() => {
     const firstItem = (currentPage - 1) * 4;
     const lastItem = firstItem + 4;
     setItemsViewed(properties.slice(firstItem, lastItem));
   }, [currentPage]);
+
   return (
     <div className="space-y-10">
       {itemsViewed.map((property) => (
@@ -110,7 +28,7 @@ const CardsLayout = () => {
           key={property.id}
           className="rounded-[16px] bg-[#F2F3F4] shadow-lg"
         >
-          <div className="flex gap-4">
+          <div className="flex grid-cols-12 gap-4">
             <div className="flex items-center justify-center rounded-tl-[16px] rounded-bl-[16px]">
               <Image
                 src={property.image}
@@ -123,11 +41,11 @@ const CardsLayout = () => {
             <div className="flex-1 pt-9">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="text-lg font-bold text-[22px] flex gap-3">
+                  <h3 className="text-lg font-bold text-[22px] flex lg:gap-1 gap-0 flex-col lg:flex-row">
                     {property.title}
                     <Badge
                       variant="default"
-                      className={`${property.status.color} px-[10px] py-[2px] font-semibold`}
+                      className={`${property.status.color} px-[10px] py-[2px] font-semibold h-5 max-h-5 w-fit flex items-center rounded-[10px]`}
                     >
                       {property.status.status}
                     </Badge>
@@ -145,34 +63,26 @@ const CardsLayout = () => {
               </div>
               <div className="grid grid-cols-3 mt-2 w-1/2 min-h-5 h-5">
                 {property.features.map((feature, index) => (
-                  <div
+                  <Feature
                     key={index}
-                    className="flex items-center gap-2 text-[#494949] text-[12px]"
-                  >
-                    <feature.icon
-                      className="h-6 w-6 border-[2px] p-1 rounded-[5px] border-[#6666FF] bg-white"
-                      color="#6666FF"
-                    />
-                    <span>
-                      {feature.value} {feature.name}
-                    </span>
-                  </div>
-                ))}
-                <div className="flex items-center gap-2 text-[#494949] text-[12px]">
-                  <Maximize
-                    className="h-6 w-6 border-[2px] p-1 rounded-[5px] border-[#6666FF] bg-white"
-                    color="#6666FF"
+                    featureName={feature.name}
+                    featureIcon={feature.icon}
+                    featureValue={feature.value}
                   />
-                  <span>{property.area} m²</span>
-                </div>
+                ))}
+
+                <Feature
+                  featureName="m²"
+                  featureIcon={Maximize}
+                  featureValue={property.area.toString()}
+                />
                 {property.hasBroker && (
-                  <div className="flex items-center gap-2 mt-2 text-[#494949] text-[12px]">
-                    <User
-                      className="h-6 w-6 border-[2px] p-1 rounded-[5px] border-[#6666FF] bg-white"
-                      color="#6666FF"
-                    />
-                    <span>{property.brokerName}</span>
-                  </div>
+                  <Feature
+                    featureName=""
+                    featureIcon={User}
+                    featureValue={property.brokerName || ""}
+                    className="mt-2"
+                  />
                 )}
               </div>
 
