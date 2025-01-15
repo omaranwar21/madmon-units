@@ -50,7 +50,13 @@ const CardsLayout = () => {
                     {property.title}
                     <Badge
                       variant="default"
-                      className={`${property.status.color} px-[10px] py-[2px] font-semibold h-5 max-h-5 w-fit flex items-center rounded-[10px]`}
+                      className={`${
+                        property.status.color === "bg-[#02AE36]"
+                          ? "bg-[#02AE36]"
+                          : property.status.color === "bg-[#6666FF]"
+                          ? "bg-[#6666FF]"
+                          : "bg-[#F20000]"
+                      } px-[10px] py-[2px] font-semibold h-5 max-h-5 w-fit flex items-center rounded-[10px]`}
                     >
                       {property.status.status}
                     </Badge>
@@ -66,7 +72,7 @@ const CardsLayout = () => {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-6 mt-2 min-h-5 h-5">
+              <div className="grid grid-cols-3 mt-2 min-h-5 h-5 w-1/2">
                 {property.features.map((feature, index) => (
                   <Feature
                     key={index}
