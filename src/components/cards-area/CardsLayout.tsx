@@ -29,7 +29,12 @@ const CardsLayout = () => {
           className="rounded-[16px] bg-[#F2F3F4] shadow-lg"
         >
           <div className="flex grid-cols-12 gap-4">
-            <div className="flex items-center justify-center rounded-tl-[16px] rounded-bl-[16px]">
+            <div className="flex items-center justify-center rounded-tl-[16px] rounded-bl-[16px] relative">
+              {property.hasBroker && (
+                <div className="bg-[#0512F5] absolute top-0 left-0 rounded-tl-[16px] w-1/2 text-center rounded-br-[16px] py-1 text-white text-[12px]">
+                  Reserved
+                </div>
+              )}
               <Image
                 src={property.image}
                 alt={property.title}
@@ -56,7 +61,7 @@ const CardsLayout = () => {
                   </p>
                 </div>
                 <div className="text-right">
-                  <div className="text-[28px] font-bold text-[#F20000]">
+                  <div className="text-[28px] font-bold text-[#F20000] pr-8">
                     {property.price.toLocaleString()} EGP
                   </div>
                 </div>
@@ -86,7 +91,7 @@ const CardsLayout = () => {
                 )}
               </div>
 
-              <div className="flex justify-between mt-[2.25rem]">
+              <div className="flex justify-between mt-[2.25rem] pr-8">
                 {property.status.status === "Approved" &&
                 !property.hasBroker ? (
                   <Button
@@ -115,9 +120,11 @@ const CardsLayout = () => {
               </div>
             </div>
 
-            <div className="h-100 w-1/12 flex justify-center items-center bg-[#f000007f] rounded-tr-[16px] rounded-br-[16px]">
-              <Trash color="white" />
-            </div>
+            {!property.hasBroker && (
+              <div className="h-100 w-1/12 flex justify-center items-center bg-[#f000007f] rounded-tr-[16px] rounded-br-[16px]">
+                <Trash color="white" />
+              </div>
+            )}
           </div>
         </Card>
       ))}
@@ -126,6 +133,7 @@ const CardsLayout = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         itemsPerPage={4}
+        currentItemsViewed={itemsViewed.length}
       />
     </div>
   );

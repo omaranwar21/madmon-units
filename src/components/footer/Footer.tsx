@@ -1,7 +1,24 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Mail, MapPin, Phone } from "lucide-react";
 
+const footerData = [
+  {
+    title: "Contact Us",
+    links: [
+      { name: "42 Fareek Awal Ali Amer", icon: MapPin },
+      { name: "01234568910", icon: Phone },
+      { name: "hr@Madmon.ai", icon: Mail },
+    ],
+    hasIcon: true,
+  },
+  {
+    title: "Useful Links",
+    links: ["About us", "Privacy Policy", "Support", "Terms & Conditions"],
+    hasIcon: false,
+  },
+];
 const Footer = () => {
   return (
     <footer className="bg-blue-600 text-white py-12 bottom-0 w-full">
@@ -17,31 +34,32 @@ const Footer = () => {
               />
             </div>
           </div>
-          <div className="relative pl-20 flex flex-col justify-center">
-            <h3 className="font-semibold mb-4 text-[#F2DB00] text-[16px]">
-              Useful Links
-            </h3>
-            <div className="space-y-2 text-[14px] text-white">
-              <div>About us</div>
-              <div>Privacy Policy</div>
-              <div>Support</div>
-              <div>Terms & Conditions</div>
-            </div>
-            <span className="absolute left-0 top-0 h-full w-[2px] bg-[#F2DB00]"></span>
-          </div>
 
-          <div className="relative pl-20 flex flex-col justify-center">
-            <h3 className="font-semibold mb-4 text-[#F2DB00] text-[16px]">
-              Useful Links
-            </h3>
-            <div className="space-y-2 text-[14px] text-white">
-              <div>About us</div>
-              <div>Privacy Policy</div>
-              <div>Support</div>
-              <div>Terms & Conditions</div>
+          {footerData.map((data, index) => (
+            <div
+              key={index}
+              className="relative pl-20 flex flex-col justify-center"
+            >
+              <div className="flex flex-col justify-evenly h-full">
+                <h3 className="font-semibold mb-4 text-[#F2DB00] text-[16px]">
+                  {data.title}
+                </h3>
+                <div className="space-y-2 text-[14px] text-white">
+                  {data.links &&
+                    data.links.map((link, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        {data.hasIcon && typeof link !== "string" && (
+                          <link.icon />
+                        )}
+
+                        <div>{typeof link === "string" ? link : link.name}</div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+              <span className="absolute left-0 top-0 h-full w-[2px] bg-[#F2DB00]"></span>
             </div>
-            <span className="absolute left-0 top-0 h-full w-[2px] bg-[#F2DB00]"></span>
-          </div>
+          ))}
 
           <div className="relative pl-20 flex flex-col justify-center">
             <div className="flex gap-4">

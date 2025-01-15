@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google"; // Import Poppins
 import "./globals.css";
 import AppLayoutProvider from "@/components/layout/AppLayoutProvider";
 
-export const poppins = Poppins({
+const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["400", "600", "700"], // Specify the weights you want
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased`}>
+      <body className={`${poppins.variable} antialiased tracking-tighter`}>
         <AppLayoutProvider>{children}</AppLayoutProvider>
       </body>
     </html>
