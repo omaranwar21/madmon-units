@@ -1,232 +1,30 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Bed, Bath, Maximize, Plus, Bird } from "lucide-react";
-import Image from "next/image";
-
-interface Property {
-  id: number;
-  title: string;
-  location: string;
-  price: number;
-  bedrooms: number;
-  bathrooms: number;
-  area: number;
-  image: string;
-  status: "Active" | "Sold" | "Reserved";
-}
-
-const properties: Property[] = [
-  {
-    id: 1,
-    title: "Grand House Real Estate",
-    location: "New Cairo, Egypt",
-    price: 13500000,
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 350,
-    image: "/assets/marketeq_favourite.svg",
-    // https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop
-    status: "Active",
-  },
-  {
-    id: 2,
-    title: "Grand House Real Estate",
-    location: "New Cairo, Egypt",
-    price: 13500000,
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 350,
-    image: "/assets/marketeq_favourite.svg",
-    // https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop
-    status: "Reserved",
-  },
-  {
-    id: 3,
-    title: "Grand House Real Estate",
-    location: "New Cairo, Egypt",
-    price: 13500000,
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 350,
-    image: "/assets/marketeq_favourite.svg",
-    // https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2070&auto=format&fit=crop
-    status: "Active",
-  },
-];
-
-const navItemsStyle = "text-[#0512F5] font-bold text-[20]";
+import CardsLayout from "@/components/cards-area/CardsLayout";
+import HeaderCardsArea from "@/components/cards-area/HeaderCardsArea";
+import Header from "@/components/header/Header";
+import Sidebar from "@/components/sidebar/Sidebar";
+import { Bird } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="border-b h-[109px] flex items-center">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Bird className="h-6 w-6 text-blue-600" />
-            <span className="text-xl font-bold">madman</span>
-          </div>
-          <nav className="flex items-center gap-[34px]">
-            <a href="#" className={navItemsStyle}>
-              Home
-            </a>
-            <a href="#" className={navItemsStyle}>
-              About
-            </a>
-            <a href="#" className={navItemsStyle}>
-              Contact
-            </a>
-            <a
-              href="#"
-              className={`flex items-center gap-[4px] justify-center ${navItemsStyle}`}
-            >
-              <Image
-                className="mb-[2px]"
-                alt=""
-                src="/assets/marketeq_favourite.svg"
-                width={21}
-                height={19}
-              />
-              Favourite
-            </a>
-            <a
-              href="#"
-              className={`flex items-center gap-[4px] justify-center ${navItemsStyle}`}
-            >
-              <Image
-                className="mb-[2px]"
-                alt=""
-                src="/assets/earth.svg"
-                width={19}
-                height={19}
-              />
-              EN
-            </a>
-            <Button variant="outline">Open Whatsapp</Button>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen bg-white">
+      <Header />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-20 py-8">
         <div className="flex gap-8">
-          <div className="w-64">
-            <h2 className="text-lg font-semibold mb-4">My Account</h2>
-            <Input placeholder="My Units" className="mb-4" />
-            <div className="text-sm text-gray-600">My Reservations</div>
-          </div>
+          {/* sidebar */}
+          <Sidebar />
 
+          {/* Cards Area */}
           <div className="flex-1">
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-2xl font-bold">My Units</h1>
-              <div className="flex gap-2">
-                <Button variant="outline" size="icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-4 w-4"
-                  >
-                    <rect width="7" height="7" x="3" y="3" rx="1" />
-                    <rect width="7" height="7" x="14" y="3" rx="1" />
-                    <rect width="7" height="7" x="14" y="14" rx="1" />
-                    <rect width="7" height="7" x="3" y="14" rx="1" />
-                  </svg>
-                </Button>
-                <Button variant="outline" size="icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-4 w-4"
-                  >
-                    <line x1="21" x2="3" y1="6" y2="6" />
-                    <line x1="21" x2="3" y1="12" y2="12" />
-                    <line x1="21" x2="3" y1="18" y2="18" />
-                  </svg>
-                </Button>
-                <Button className="gap-2">
-                  <Plus className="h-4 w-4" /> Add Unit
-                </Button>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              {properties.map((property) => (
-                <Card key={property.id} className="p-4">
-                  <div className="flex gap-4">
-                    <Image
-                      src={property.image}
-                      alt={property.title}
-                      width={200}
-                      height={200}
-                      className="w-48 h-32 object-cover rounded-lg"
-                    />
-                    <div className="flex-1">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h3 className="text-lg font-semibold">
-                            {property.title}
-                          </h3>
-                          <p className="text-sm text-gray-600">
-                            {property.location}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-xl font-bold text-red-500">
-                            {property.price.toLocaleString()} EGP
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            Added {new Date().toLocaleDateString()}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-4 mt-4">
-                        <div className="flex items-center gap-2 text-gray-600">
-                          <Bed className="h-4 w-4" />
-                          <span>{property.bedrooms} Bedrooms</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-gray-600">
-                          <Bath className="h-4 w-4" />
-                          <span>{property.bathrooms} Bathrooms</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-gray-600">
-                          <Maximize className="h-4 w-4" />
-                          <span>{property.area} m²</span>
-                        </div>
-                      </div>
-                      <div className="mt-4">
-                        <Button variant="outline" className="w-full">
-                          {property.status === "Active"
-                            ? "Assign to Broker"
-                            : property.status === "Reserved"
-                            ? "Edit"
-                            : "Sold"}
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
+            <HeaderCardsArea />
+            <CardsLayout />
           </div>
         </div>
       </main>
 
-      <footer className="bg-blue-600 text-white py-12">
+      <footer className="bg-blue-600 text-white py-12 bottom-0 w-full">
         <div className="container mx-auto px-4">
           <div className="flex justify-between">
             <div>
