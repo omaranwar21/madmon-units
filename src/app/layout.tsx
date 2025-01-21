@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased tracking-tighter`}>
+      <body className="__variable_5d6309 antialiased tracking-tighter">
         <AppLayoutProvider>{children}</AppLayoutProvider>
       </body>
     </html>

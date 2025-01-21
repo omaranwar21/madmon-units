@@ -1,32 +1,42 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card } from "../ui/card";
 import { Maximize, Trash, User } from "lucide-react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import PaginationArea from "./PaginationArea";
 import { Badge } from "@/components/ui/badge";
-import { properties } from "@/data/cards-data";
 import Feature from "./Feature";
-import { IProperty } from "@/types/card-types";
+import { useDeleteUnit, useFetchUnits } from "@/hooks/useUnits";
+import { formatDate, previewedUnits } from "@/lib/helpers";
+import useUnitsFilter from "@/hooks/useUnitsFilter";
+import { useAppStore } from "@/zustand/store";
 
 const CardsLayout = () => {
+  const { isLoading, isError } = useFetchUnits();
+  const { filterID, sortDirection, units } = useAppStore();
+
   // States
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [itemsViewed, setItemsViewed] = useState<IProperty[]>(
-    properties.slice(0, 4)
-  );
 
-  //Side Effects
-  useEffect(() => {
-    const firstItem = (currentPage - 1) * 4;
-    const lastItem = firstItem + 4;
-    setItemsViewed(properties.slice(firstItem, lastItem));
-  }, [currentPage]);
+  // const deleteUnit = useDeleteUnit();
+
+  const { sortedUnits } = useUnitsFilter({
+    unitsList: units || [],
+    filterID,
+    sortingDir: sortDirection,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading units</div>;
+
+  // const handleDelete = (id: string) => {
+  //   deleteUnit.mutate(id);
+  // };
 
   return (
     <div className="space-y-10">
-      {itemsViewed.map((property) => (
+      {previewedUnits(currentPage, sortedUnits).map((property) => (
         <Card
           key={property.id}
           className="rounded-[16px] bg-[#F2F3F4] shadow-lg"
@@ -42,14 +52,15 @@ const CardsLayout = () => {
               <Image
                 src={property.image}
                 alt={property.title}
-                width={235}
-                height={235}
-                className="w-100 h-100 object-contain rounded-tl-[16px] rounded-bl-[16px] py-0"
+                width={1024}
+                height={1024}
+                objectFit="cover"
+                className="rounded-tl-[16px] rounded-bl-[16px] py-0"
               />
             </div>
 
             {/* Details side */}
-            <div className={`col-span-${!property.hasBroker ? "8" : "9"}`}>
+            <div className={`col-span-${true ? "8" : "9"}`}>
               <div className="grid grid-cols-12 p-4 pb-8 relative h-full">
                 {/* title, badge */}
                 <div className="col-span-7 flex flex-col justify-between">
@@ -58,14 +69,14 @@ const CardsLayout = () => {
                     <Badge
                       variant="default"
                       className={`${
-                        property.status.color === "bg-[#02AE36]"
+                        property.status === "Approved"
                           ? "bg-[#02AE36]"
-                          : property.status.color === "bg-[#6666FF]"
+                          : property.status === "Pending"
                           ? "bg-[#6666FF]"
                           : "bg-[#F20000]"
                       } px-[10px] py-[2px] font-semibold h-5 max-h-5 flex items-center rounded-[4px]`}
                     >
-                      {property.status.status}
+                      {property.status}
                     </Badge>
                   </h3>
                   <p className="text-[16px] text-[#494949] text-semibold">
@@ -96,8 +107,7 @@ const CardsLayout = () => {
                     )}
                   </div>
                   <div className="flex justify-between mt-[2rem] col-span-3">
-                    {property.status.status === "Approved" &&
-                    !property.hasBroker ? (
+                    {property.status === "Approved" && !property.hasBroker ? (
                       <Button
                         variant="outline"
                         className="w-full py-6 border-[1px] rounded-[10px] border-[#6666FF] font-bold text-[#6666FF]"
@@ -128,7 +138,7 @@ const CardsLayout = () => {
 
                   <div className="text-[16px] text-[#494949] flex flex-col items-end">
                     <span className="font-bold">Added</span>
-                    <span>{new Date().toLocaleDateString()}</span>
+                    <span>{formatDate(property.date)}</span>
                   </div>
                 </div>
               </div>
@@ -143,11 +153,11 @@ const CardsLayout = () => {
         </Card>
       ))}
       <PaginationArea
-        listLength={properties.length}
+        listLength={units ? units.length : 0}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         itemsPerPage={4}
-        currentItemsViewed={itemsViewed.length}
+        currentItemsViewed={previewedUnits(currentPage, sortedUnits).length}
       />
     </div>
   );

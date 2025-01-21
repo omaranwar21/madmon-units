@@ -13,7 +13,7 @@ export const properties: IProperty[] = [
     ],
     area: 250,
     image: "/assets/cards/1.png",
-    status: { status: "Approved", color: "bg-[#02AE36]" },
+    status: "Approved",
     hasBroker: false,
   },
   {
@@ -27,7 +27,7 @@ export const properties: IProperty[] = [
     ],
     area: 250,
     image: "/assets/cards/2.png",
-    status: { status: "Pending", color: "bg-[#6666FF]" },
+    status: "Pending",
   },
   {
     id: 3,
@@ -40,7 +40,7 @@ export const properties: IProperty[] = [
     ],
     area: 250,
     image: "/assets/cards/3.png",
-    status: { status: "Approved", color: "bg-[#02AE36]" },
+    status: "Approved",
     hasBroker: true,
     brokerName: "Mohamed Sami",
     isReserved: true,
@@ -56,7 +56,7 @@ export const properties: IProperty[] = [
     ],
     area: 250,
     image: "/assets/cards/4.png",
-    status: { status: "Rejected", color: "bg-[#F20000]" },
+    status: "Rejected",
     isEditable: true,
   },
   {
@@ -70,7 +70,7 @@ export const properties: IProperty[] = [
     ],
     area: 250,
     image: "/assets/cards/1.png",
-    status: { status: "Approved", color: "bg-[#02AE36]" },
+    status: "Approved",
     hasBroker: false,
   },
   {
@@ -84,6 +84,6 @@ export const properties: IProperty[] = [
     ],
     area: 250,
     image: "/assets/cards/2.png",
-    status: { status: "Pending", color: "bg-[#6666FF]" },
+    status: "Pending",
   },
 ];

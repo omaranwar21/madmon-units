@@ -1,17 +1,11 @@
 import { LucideProps } from "lucide-react";
 
 interface IFeatures {
-  id: number;
   name: string;
   icon: React.ForwardRefExoticComponent<
     Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
   >;
   value: string;
-}
-
-interface IStatus {
-  status: "Approved" | "Rejected" | "Pending";
-  color: "bg-[#02AE36]" | "bg-[#F20000]" | "bg-[#6666FF]";
 }
 
 export interface IProperty {
@@ -22,9 +16,23 @@ export interface IProperty {
   features: IFeatures[];
   area: number;
   image: string;
-  status: IStatus;
+  date: string;
+  status: "Approved" | "Rejected" | "Pending";
   isReserved?: boolean;
   hasBroker?: boolean;
   brokerName?: string;
   isEditable?: boolean;
+}
+
+export interface IUnitRequest {
+  createdAt: string;
+  name: string;
+  coverUrl: string;
+  address: string;
+  price: number;
+  bedroomsNumber: number;
+  bathroomsNumber: number;
+  space: number;
+  status: "pending" | "approved" | "rejected";
+  id: string;
 }
