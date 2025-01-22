@@ -17,7 +17,7 @@ export interface IProperty {
   area: number;
   image: string;
   date: string;
-  status: "Approved" | "Rejected" | "Pending";
+  status: "Reserved" | "Sold" | "Pending";
   isReserved?: boolean;
   hasBroker?: boolean;
   brokerName?: string;

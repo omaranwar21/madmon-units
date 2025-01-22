@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Card } from "../ui/card";
 import { Maximize, Trash, User } from "lucide-react";
-import { Button } from "../ui/button";
 import Image from "next/image";
 import PaginationArea from "./PaginationArea";
 import { Badge } from "@/components/ui/badge";
@@ -69,9 +68,9 @@ const CardsLayout = () => {
                     <Badge
                       variant="default"
                       className={`${
-                        property.status === "Approved"
+                        property.status === "Pending"
                           ? "bg-[#02AE36]"
-                          : property.status === "Pending"
+                          : property.status === "Reserved"
                           ? "bg-[#6666FF]"
                           : "bg-[#F20000]"
                       } px-[10px] py-[2px] font-semibold h-5 max-h-5 flex items-center rounded-[4px]`}
@@ -106,27 +105,7 @@ const CardsLayout = () => {
                       />
                     )}
                   </div>
-                  <div className="flex justify-between mt-[2rem] col-span-3">
-                    {property.status === "Approved" && !property.hasBroker ? (
-                      <Button
-                        variant="outline"
-                        className="w-full py-6 border-[1px] rounded-[10px] border-[#6666FF] font-bold text-[#6666FF]"
-                      >
-                        Assign a Broker
-                      </Button>
-                    ) : (
-                      !property.isEditable && <div className="w-1/2"></div>
-                    )}
-
-                    {property.isEditable && (
-                      <Button
-                        variant="outline"
-                        className="w-full py-6 border-[1px] rounded-[10px] border-[#6666FF] font-bold text-[#6666FF]"
-                      >
-                        Edit
-                      </Button>
-                    )}
-                  </div>
+                  <div className="flex justify-between mt-[2rem] col-span-3"></div>
                 </div>
 
                 {/* Price, Added */}
