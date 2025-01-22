@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card } from "../ui/card";
-import { Maximize, Trash, User } from "lucide-react";
+import { Maximize, Trash } from "lucide-react";
 import Image from "next/image";
 import PaginationArea from "./PaginationArea";
 import { Badge } from "@/components/ui/badge";
@@ -113,14 +113,6 @@ const CardsLayout = () => {
                       featureIcon={Maximize}
                       featureValue={property.area.toString()}
                     />
-                    {property.hasBroker && (
-                      <Feature
-                        featureName=""
-                        featureIcon={User}
-                        featureValue={property.brokerName || ""}
-                        className="mt-2"
-                      />
-                    )}
                   </div>
                   <div className="flex justify-between mt-[2rem] col-span-3"></div>
                 </div>
