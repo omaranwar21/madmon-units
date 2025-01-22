@@ -11,6 +11,8 @@ import { useDeleteUnit, useFetchUnits } from "@/hooks/useUnits";
 import { formatDate, previewedUnits } from "@/lib/helpers";
 import useUnitsFilter from "@/hooks/useUnitsFilter";
 import { useAppStore } from "@/zustand/store";
+import Loading from "../common/Loading";
+import Error from "../common/Error";
 
 const CardsLayout = () => {
   const { isLoading, isError } = useFetchUnits();
@@ -43,8 +45,13 @@ const CardsLayout = () => {
     }
   }, []);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading units</div>;
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isError) {
+    return <Error />;
+  }
 
   const handleDelete = (id: number) => {
     deleteUnit.mutate(id);
