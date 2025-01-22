@@ -12,7 +12,6 @@ import {
 
 const HeaderCardsArea = () => {
   const {
-    filterID,
     dateFilter,
     priceFilter,
     sortDirection,
