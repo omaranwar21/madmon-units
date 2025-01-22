@@ -28,15 +28,21 @@ const PaginationArea = ({
       <span className="text-[20px] text-[#A2A7AF]">
         Showing {currentItemsViewed} Units
       </span>
+
       <PaginationContent>
-        {currentPage > 1 && (
-          <PaginationItem
-            className="border rounded-full border-[#0512F5] text-[#0512F5] hover:text-[#0512F5] cursor-pointer"
-            onClick={() => setCurrentPage(currentPage - 1)}
-          >
-            <PaginationPrevious href="#" className="border rounded-full" />
-          </PaginationItem>
-        )}
+        <PaginationItem
+          className={`border rounded-full border-[#0512F5] text-[#0512F5] hover:text-[#0512F5] cursor-pointer ${
+            currentPage <= 1 ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          aria-disabled={currentPage <= 1}
+          onClick={() => {
+            if (currentPage > 1) {
+              setCurrentPage(currentPage - 1);
+            }
+          }}
+        >
+          <PaginationPrevious className="border rounded-full" />
+        </PaginationItem>
 
         {Array.from(
           { length: Math.ceil(listLength / itemsPerPage) },
@@ -57,15 +63,21 @@ const PaginationArea = ({
           </PaginationItem>
         ))}
 
-        {currentPage < Math.ceil(listLength / itemsPerPage) && (
-          <PaginationItem className="border rounded-full border-[#0512F5] text-[#0512F5] hover:text-[#0512F5] cursor-pointer">
-            <PaginationNext
-              href="#"
-              className="border rounded-full"
-              onClick={() => setCurrentPage(currentPage + 1)}
-            />
-          </PaginationItem>
-        )}
+        <PaginationItem
+          className={`border rounded-full border-[#0512F5] text-[#0512F5] hover:text-[#0512F5] cursor-pointer ${
+            currentPage >= Math.ceil(listLength / itemsPerPage)
+              ? "opacity-50 cursor-not-allowed"
+              : ""
+          }`}
+          aria-disabled={currentPage >= Math.ceil(listLength / itemsPerPage)}
+          onClick={() => {
+            if (currentPage < Math.ceil(listLength / itemsPerPage)) {
+              setCurrentPage(currentPage + 1);
+            }
+          }}
+        >
+          <PaginationNext className="border rounded-full" />
+        </PaginationItem>
       </PaginationContent>
     </Pagination>
   );

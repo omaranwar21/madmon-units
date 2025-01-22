@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Card } from "../ui/card";
 import { Maximize, Trash, User } from "lucide-react";
 import Image from "next/image";
@@ -15,7 +16,9 @@ const CardsLayout = () => {
   const { isLoading, isError } = useFetchUnits();
   const { filterID, sortDirection, units } = useAppStore();
 
-  // States
+  const router = useRouter();
+
+  // Get initial page from the URL or default to 1
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const deleteUnit = useDeleteUnit();
@@ -25,6 +28,20 @@ const CardsLayout = () => {
     filterID,
     sortingDir: sortDirection,
   });
+
+  // Update URL param when the page changes
+  useEffect(() => {
+    router.push(`?page=${currentPage}`, undefined);
+  }, [currentPage, router]);
+
+  // Read page from URL on initial load
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const page = parseInt(params.get("page") || "1");
+    if (!isNaN(page)) {
+      setCurrentPage(page);
+    }
+  }, []);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading units</div>;
