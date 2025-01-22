@@ -1,8 +1,13 @@
 "use client";
+
 import React from "react";
 import { Button } from "../ui/button";
 import { FilterIcon, LucideSortAsc, LucideSortDesc, Plus } from "lucide-react";
-import { useAppStore } from "@/zustand/store";
+
+import { useFilterStore } from "@/zustand/filterStore";
+import { usePaginationStore } from "@/zustand/paginationStore";
+import { useSortStore } from "@/zustand/sortStore";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,13 +16,9 @@ import {
 } from "../ui/dropdown-menu";
 
 const HeaderCardsArea = () => {
-  const {
-    dateFilter,
-    priceFilter,
-    sortDirection,
-    sortDirectionToggle,
-  } = useAppStore();
-
+  const { dateFilter, priceFilter } = useFilterStore();
+  const { setCurrentPage } = usePaginationStore();
+  const { sortDirection, sortDirectionToggle } = useSortStore();
   return (
     <div className="grid grid-cols-12 justify-between items-center mb-6">
       <h1 className="col-span-12 sm:col-span-3 text-2xl font-bold text-[#494949] flex text-center sm:text-left items-center justify-center sm:justify-center sm:mb-0 mb-4">
@@ -30,13 +31,19 @@ const HeaderCardsArea = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem
-              onClick={dateFilter}
+              onClick={() => {
+                dateFilter();
+                setCurrentPage(1);
+              }}
               className="text-[#0512F5] bg-white cursor-pointer"
             >
               By Date
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={priceFilter}
+              onClick={() => {
+                priceFilter();
+                setCurrentPage(1);
+              }}
               className="text-[#0512F5] bg-white cursor-pointer"
             >
               By Price
@@ -47,7 +54,10 @@ const HeaderCardsArea = () => {
           variant="default"
           size="icon"
           className="bg-[#6666FF] hover:bg-[#6666ff8e]"
-          onClick={sortDirectionToggle}
+          onClick={() => {
+            sortDirectionToggle();
+            setCurrentPage(1);
+          }}
         >
           {sortDirection === "desc" ? <LucideSortDesc /> : <LucideSortAsc />}
         </Button>

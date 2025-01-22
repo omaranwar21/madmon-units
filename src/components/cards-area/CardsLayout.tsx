@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card } from "../ui/card";
 import { Maximize, Trash } from "lucide-react";
@@ -10,20 +10,25 @@ import Feature from "./Feature";
 import { useDeleteUnit, useFetchUnits } from "@/hooks/useUnits";
 import { formatDate, previewedUnits } from "@/lib/helpers";
 import useUnitsFilter from "@/hooks/useUnitsFilter";
-import { useAppStore } from "@/zustand/store";
+
+import { useFilterStore } from "@/zustand/filterStore";
+import { useSortStore } from "@/zustand/sortStore";
+import { useUnitsStore } from "@/zustand/unitsStore";
+import { usePaginationStore } from "@/zustand/paginationStore";
+
 import Loading from "../common/Loading";
 import Error from "../common/Error";
 
 const CardsLayout = () => {
   const { isLoading, isError } = useFetchUnits();
-  const { filterID, sortDirection, units } = useAppStore();
+  const deleteUnit = useDeleteUnit();
+
+  const { filterID } = useFilterStore();
+  const { sortDirection } = useSortStore();
+  const { units } = useUnitsStore();
+  const { currentPage, setCurrentPage } = usePaginationStore();
 
   const router = useRouter();
-
-  // Get initial page from the URL or default to 1
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const deleteUnit = useDeleteUnit();
 
   const { sortedUnits } = useUnitsFilter({
     unitsList: units || [],

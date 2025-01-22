@@ -3,11 +3,11 @@ import api from "../utils/api/api";
 import { Endpoints, QueryKeys } from "@/utils/api/endpoints";
 import { IProperty, IUnitRequest } from "@/types/card-types";
 import { Bath, Bed } from "lucide-react";
-import { useAppStore } from "@/zustand/store";
+import { useUnitsStore } from "@/zustand/unitsStore";
 
 // Fetch Units
 export const useFetchUnits = () => {
-  const { updateUnits } = useAppStore();
+  const { updateUnits } = useUnitsStore();
   return useQuery({
     queryKey: [QueryKeys.units],
     queryFn: async () => {
