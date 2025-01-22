@@ -19,8 +19,6 @@ const HeaderCardsArea = () => {
     sortDirectionToggle,
   } = useAppStore();
 
-  console.log(filterID, "filterID");
-
   return (
     <div className="grid grid-cols-12 justify-between items-center mb-6">
       <h1 className="col-span-12 sm:col-span-3 text-2xl font-bold text-[#494949] flex text-center sm:text-left items-center justify-center sm:justify-center sm:mb-0 mb-4">

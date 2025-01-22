@@ -26,6 +26,8 @@ interface IProps {
 const navItemsStyle = "text-[#0512F5] text-[20px]";
 const AppNav = ({ type }: IProps) => {
   const [logDropdown, setLogDropdown] = useState(false);
+  const [langDropdown, setLangDropdown] = useState(false);
+  const [currentLang, setCurrentLang] = useState("EN");
 
   if (type === "nav") {
     return (
@@ -52,19 +54,37 @@ const AppNav = ({ type }: IProps) => {
           />
           Favourite
         </Link>
-        <Link
-          href="#"
-          className={`flex items-center gap-[4px] justify-center ${navItemsStyle}`}
-        >
-          <Image
-            className="mb-[2px]"
-            alt=""
-            src="/assets/earth.svg"
-            width={19}
-            height={19}
-          />
-          EN
-        </Link>
+        <DropdownMenu onOpenChange={() => setLangDropdown(!langDropdown)}>
+          <DropdownMenuTrigger className="flex items-center gap-1">
+            <Link
+              href="#"
+              className={`flex items-center gap-[4px] justify-center ${navItemsStyle}`}
+            >
+              <Image
+                className="mb-[2px]"
+                alt=""
+                src="/assets/earth.svg"
+                width={19}
+                height={19}
+              />
+              {currentLang}
+            </Link>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              className="text-[#0512F5]"
+              onClick={() => setCurrentLang("AR")}
+            >
+              Arabic
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="text-[#0512F5]"
+              onClick={() => setCurrentLang("EN")}
+            >
+              English
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <div className="flex items-center gap-1">
           <Image
             src="/assets/Ellipse 156.svg"
@@ -143,19 +163,37 @@ const AppNav = ({ type }: IProps) => {
                 />
                 Favourite
               </Link>
-              <Link
-                href="#"
-                className={`flex items-center gap-[4px] ${navItemsStyle}`}
-              >
-                <Image
-                  className="mb-[2px]"
-                  alt=""
-                  src="/assets/earth.svg"
-                  width={19}
-                  height={19}
-                />
-                EN
-              </Link>
+              <DropdownMenu onOpenChange={() => setLangDropdown(!langDropdown)}>
+                <DropdownMenuTrigger className="flex items-center gap-1">
+                  <Link
+                    href="#"
+                    className={`flex items-center gap-[4px] justify-center ${navItemsStyle}`}
+                  >
+                    <Image
+                      className="mb-[2px]"
+                      alt=""
+                      src="/assets/earth.svg"
+                      width={19}
+                      height={19}
+                    />
+                    {currentLang}
+                  </Link>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem
+                    className="text-[#0512F5]"
+                    onClick={() => setCurrentLang("AR")}
+                  >
+                    Arabic
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-[#0512F5]"
+                    onClick={() => setCurrentLang("EN")}
+                  >
+                    English
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
             <SheetFooter className="absolute bottom-5 flex sm:flex-col space-y-2 text-start sm:text-left sm:justify-start">

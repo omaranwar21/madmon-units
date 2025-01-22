@@ -15,7 +15,7 @@ const initialState: Omit<
   AppState,
   "dateFilter" | "priceFilter" | "sortDirectionToggle" | "updateUnits"
 > = {
-  filterID: 0,
+  filterID: 1,
   units: [],
   sortDirection: "asc",
 };

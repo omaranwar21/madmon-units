@@ -24,7 +24,6 @@ export default function useUnitsFilter({
     return 0; // Default case (if no valid filterID is provided)
   });
 
-  console.log(sortedUnits, "sortedUnits");
   return {
     sortedUnits,
   };

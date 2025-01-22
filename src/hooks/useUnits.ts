@@ -38,7 +38,6 @@ export const useDeleteUnit = () => {
 
   return useMutation({
     mutationFn: async (id: number) => {
-      console.log("Delete unit with id: ", id);
       await api.delete(`${Endpoints.units.getUnits}/${id.toString()}`);
     },
     onSuccess: () => {
