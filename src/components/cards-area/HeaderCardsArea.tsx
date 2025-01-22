@@ -23,8 +23,10 @@ const HeaderCardsArea = () => {
 
   return (
     <div className="grid grid-cols-12 justify-between items-center mb-6">
-      <h1 className="col-span-3 text-2xl font-bold text-[#494949]">My Units</h1>
-      <div className="col-span-9 gap-2 flex justify-end items-center">
+      <h1 className="col-span-12 sm:col-span-3 text-2xl font-bold text-[#494949] flex text-center sm:text-left items-center justify-center sm:justify-center sm:mb-0 mb-4">
+        My Units
+      </h1>
+      <div className="col-span-12 sm:col-span-9 gap-1 flex justify-center sm:justify-end items-center">
         <DropdownMenu>
           <DropdownMenuTrigger className="bg-[#6666FF] text-white shadow hover:bg-[#6666ff8e] h-9 w-9 rounded-md flex items-center justify-center">
             <FilterIcon />

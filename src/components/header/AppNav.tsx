@@ -104,7 +104,7 @@ const AppNav = ({ type }: IProps) => {
           <SheetTrigger asChild>
             <Button
               variant="default"
-              className="bg-[#0512F5] text-white hover:bg-white hover:text-[#0512F5] border border-[#0512F5]"
+              className="hover:bg-[#0512F5] hover:text-white bg-white text-[#0512F5] border border-[#0512F5]"
             >
               <Menu />
             </Button>

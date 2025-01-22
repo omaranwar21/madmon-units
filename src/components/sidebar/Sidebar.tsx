@@ -11,19 +11,19 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="col-span-12 xl:col-span-3 w-100">
+    <div className="col-span-12 xl:col-span-3 w-100 px-4">
       <ul className="grid grid-cols-12 xl:grid-rows-12 w-100 gap-4">
         {sidebarList.map((item, index) => (
           <li
             key={index}
-            className={`col-span-4 xl:col-span-12 py-[10px] rounded-[10px] transition-all duration-300 bg-[#F2F3F4] ${
+            className={`sm:col-span-4 col-span-12 xl:col-span-12 py-[10px] rounded-[10px] transition-all duration-300 bg-[#F2F3F4] px-3 flex items-center ${
               activeIndex === index ? "border border-[#0512F5]" : ""
             }`}
+            onClick={() => handleClick(index)}
           >
             <Link
               href={item.href}
-              onClick={() => handleClick(index)}
-              className={`flex-1 ml-10 font-medium text-[16px] group relative flex items-center transition-all duration-300 ${
+              className={`flex-1 font-medium text-[16px] group relative flex items-center transition-all duration-300 ${
                 activeIndex === index
                   ? "text-[#0512F5] font-bold"
                   : "text-[#0512F5]"

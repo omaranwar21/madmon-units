@@ -19,7 +19,7 @@ const CardsLayout = () => {
   // States
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // const deleteUnit = useDeleteUnit();
+  const deleteUnit = useDeleteUnit();
 
   const { sortedUnits } = useUnitsFilter({
     unitsList: units || [],
@@ -30,9 +30,9 @@ const CardsLayout = () => {
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading units</div>;
 
-  // const handleDelete = (id: string) => {
-  //   deleteUnit.mutate(id);
-  // };
+  const handleDelete = (id: number) => {
+    deleteUnit.mutate(id);
+  };
 
   return (
     <div className="space-y-10">
@@ -43,7 +43,7 @@ const CardsLayout = () => {
         >
           <div className="grid grid-cols-12 gap-0">
             {/* Image side */}
-            <div className="grid col-span-3 rounded-tl-[16px] rounded-bl-[16px] relative">
+            <div className="grid col-span-12 md:col-span-4 md:rounded-tl-[16px] md:rounded-bl-[16px] rounded-t-[16px] relative">
               {property.hasBroker && (
                 <div className="bg-[#0512F5] absolute top-0 left-0 rounded-tl-[16px] w-1/2 text-center rounded-br-[16px] py-1 text-white text-[12px]">
                   Reserved
@@ -55,16 +55,16 @@ const CardsLayout = () => {
                 width={1024}
                 height={1024}
                 objectFit="cover"
-                className="rounded-tl-[16px] rounded-bl-[16px] py-0"
+                className="md:rounded-tl-[16px] md:rounded-bl-[16px] py-0 md:rounded-tr-none rounded-t-[16px]"
               />
             </div>
 
             {/* Details side */}
-            <div className={`col-span-${true ? "8" : "9"}`}>
-              <div className="grid grid-cols-12 p-4 pb-8 relative h-full">
+            <div className="col-span-12 md:col-span-8">
+              <div className="grid grid-cols-12 p-0 relative h-full">
                 {/* title, badge */}
-                <div className="col-span-7 flex flex-col justify-between">
-                  <h3 className="font-bold text-[22px] flex gap-4 items-center">
+                <div className="md:col-span-7 col-span-12 flex flex-col justify-evenly p-4 pb-0">
+                  <h3 className="font-bold text-[22px] flex gap-4 items-center capitalize">
                     {property.title}
                     <Badge
                       variant="default"
@@ -82,7 +82,7 @@ const CardsLayout = () => {
                   <p className="text-[16px] text-[#494949] text-semibold">
                     {property.location}
                   </p>
-                  <div className="grid grid-cols-3 mt-2 min-h-5 h-5">
+                  <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 mt-2 min-h-5 h-5 gap-1">
                     {property.features.map((feature, index) => (
                       <Feature
                         key={index}
@@ -130,25 +130,25 @@ const CardsLayout = () => {
                 </div>
 
                 {/* Price, Added */}
-                <div className="col-span-5 gap-0 flex flex-col justify-between">
-                  <div className="text-[28px] font-semibold text-[#F20000] text-right">
+                <div className="row col-span-12 md:col-span-4 flex md:flex-col flex-row items-center md:items-end md:justify-evenly justify-between p-4 pt-0">
+                  <div className="text-2xl font-semibold text-[#F20000] text-right">
                     {property.price.toLocaleString()}{" "}
                     <span className="text-[20px] font-normal">EGP</span>
                   </div>
 
-                  <div className="text-[16px] text-[#494949] flex flex-col items-end">
+                  <div className="text-lg text-[#494949] flex flex-col items-end">
                     <span className="font-bold">Added</span>
                     <span>{formatDate(property.date)}</span>
                   </div>
                 </div>
+                <div
+                  onClick={() => handleDelete(property.id)}
+                  className="md:h-full flex justify-center items-center bg-[#f000007f] md:rounded-tr-[16px] md:rounded-br-[16px] cursor-pointer col-span-12 md:col-span-1 py-[1rem] md:py-0 rounded-b-[16px] rounded-t-none md:rounded-bl-none"
+                >
+                  <Trash color="white" />
+                </div>
               </div>
             </div>
-
-            {!property.hasBroker && (
-              <div className="col-span-1 h-100 flex justify-center items-center bg-[#f000007f] rounded-tr-[16px] rounded-br-[16px]">
-                <Trash color="white" />
-              </div>
-            )}
           </div>
         </Card>
       ))}

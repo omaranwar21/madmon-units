@@ -37,8 +37,9 @@ export const useDeleteUnit = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => {
-      await api.delete(`${Endpoints.units.getUnits}/${id}`);
+    mutationFn: async (id: number) => {
+      console.log("Delete unit with id: ", id);
+      await api.delete(`${Endpoints.units.getUnits}/${id.toString()}`);
     },
     onSuccess: () => {
       // Invalidate the query to refetch the units after a delete

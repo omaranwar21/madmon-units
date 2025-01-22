@@ -17,7 +17,7 @@ const Feature = ({
 }: IProps) => {
   return (
     <div
-      className={`flex flex-col lg:flex-row items-center gap-2 text-[#494949] text-[12px] ${className}`}
+      className={`flex flex-row lg:flex-row items-center gap-1 text-[#494949] text-[12px] ${className}`}
     >
       {React.createElement(featureIcon, {
         className:
